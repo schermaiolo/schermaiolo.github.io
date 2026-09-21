@@ -28,12 +28,12 @@ description: Embedded software, projects and technical writing by Daniel Fridman
       <div class="project-stack">
         {% assign selected = site.projects | where: 'selected', true | sort: 'order' %}
         {% for project in selected limit:3 %}
-        <article class="project-card">
+        <a class="project-card" href="{{ project.url | relative_url }}" aria-label="Open {{ project.title | escape }}">
           <div class="tags">{% for tech in project.stack limit:2 %}<span class="tag">{{ tech }}</span>{% endfor %}</div>
           <h3>{{ project.title }}</h3>
           <p>{{ project.summary }}</p>
-          <a href="{{ project.url | relative_url }}">open →</a>
-        </article>
+          <span class="project-open">open →</span>
+        </a>
         {% endfor %}
       </div>
     </div>
