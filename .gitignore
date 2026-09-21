@@ -1,0 +1,24 @@
+# Jekyll generated output
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+
+# Bundler / local Ruby gems
+.bundle/
+vendor/
+
+# Local-only authoring notes/templates
+hidden/
+
+# Old/nested copy of the site
+schermaiolo.github.io/
+
+# Editor / OS junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

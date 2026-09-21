@@ -1,0 +1,27 @@
+---
+layout: default
+nav: activity
+title: Activity
+permalink: /activity/
+archive_page: true
+---
+<main class="page-main archive-page-main">
+  <p class="page-kicker">/activity</p>
+  <h1 class="sr-only">Activity</h1>
+  <div class="page-wordmark page-wordmark-activity">{% include wordmark-activity.html %}</div>
+  <p class="page-intro">Selected commits, releases, pull requests, public contributions and project milestones — a chronological record of things I do.</p>
+
+  <div class="archive">
+    {% assign activities = site.activity | sort: 'date' | reverse %}
+    {% for item in activities %}
+    <a class="archive-row" href="{{ item.url | relative_url }}">
+      <span class="meta">{{ item.activity_type | default: 'ACT' }} · {{ item.date | date: '%-d %b %Y' }}</span>
+      <div>
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.summary }}</p>
+      </div>
+      <span class="arrow">↗</span>
+    </a>
+    {% endfor %}
+  </div>
+</main>

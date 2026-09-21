@@ -1,23 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Fridman | Embedded Software Engineer</title>
-</head>
+---
+layout: default
+nav: home
+title:
+description: Embedded software, projects and technical writing by Daniel Fridman.
+---
+<main class="home-main">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="home-wordmark" aria-label="schermaiolo.dev">{% include wordmark.html %}</div>
+      <p class="eyebrow">// Embedded Engineer and Touhou weeb</p>
+      <h1 class="lede">I build software <span class="a">close to the metal.</span> Well, most of the time.</h1>
+      <p class="lede">Low-level programming, real-time systems, embedded Linux and occasional fun content.</p>
+      <div class="hero-actions">
+        <a class="chip-link primary" href="{{ '/prj/' | relative_url }}">projects</a>
+        <a class="chip-link" href="{{ '/log/' | relative_url }}">log</a>
+        <a class="chip-link" href="{{ '/activity/' | relative_url }}">activity</a>
+        <a class="chip-link" href="https://github.com/schermaiolo" target="_blank" rel="noopener">github ↗</a>
+        <a class="chip-link sponsor-chip" href="https://github.com/sponsors/schermaiolo" target="_blank" rel="noopener">♡ sponsor</a>
+      </div>
+    </div>
+    <div class="hero-art-slot" aria-hidden="true"></div>
+  </section>
 
-<body>
-    <h1>Daniel Fridman</h1>
-    <p>Embedded Software Engineer</p>
+  <section class="dashboard" aria-label="Highlights">
+    <div>
+      <div class="block-head"><div class="block-title"><h2>selected projects</h2></div><a href="{{ '/prj/' | relative_url }}">all prj →</a></div>
+      <div class="project-stack">
+        {% assign selected = site.projects | where: 'selected', true | sort: 'order' %}
+        {% for project in selected limit:3 %}
+        <article class="project-card">
+          <div class="tags">{% for tech in project.stack limit:2 %}<span class="tag">{{ tech }}</span>{% endfor %}</div>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.summary }}</p>
+          <a href="{{ project.url | relative_url }}">open →</a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
 
-    <h2>Projects</h2>
-
-    <ul>
-        <li>
-            <a href="https://github.com/schermaiolo">
-                GitHub
-            </a>
-        </li>
-    </ul>
-</body>
-</html>
+    <div>
+      <div class="block-head"><div class="block-title"><h2>latest</h2></div><a href="{{ '/activity/' | relative_url }}">all activity →</a></div>
+      <div class="latest-list">
+        {% assign all_items = site.posts | concat: site.projects | concat: site.activity | sort: 'date' | reverse %}
+        {% for item in all_items limit:3 %}
+        <a class="latest-item" href="{{ item.url | relative_url }}">
+          <span class="latest-type">{% if item.collection == 'activity' %}{{ item.activity_type | default: 'ACT' }}{% else %}{{ item.kind | default: 'POST' }}{% endif %}</span>
+          <div><h3>{{ item.title }}</h3><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: '%-d %b %Y' }}</time></div>
+          <span class="arrow">↗</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<main class="page-main">
+  <a class="back-link" href="{{ '/activity/' | relative_url }}">← go back</a>
+  <p class="page-kicker">/activity</p>
+  <h1>{{ page.title }}</h1>
+  <p class="page-intro">
+    <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%-d %b %Y' }}</time>
+    {% if page.activity_type %} · {{ page.activity_type }}{% endif %}
+  </p>
+  {% if page.image %}
+  <div class="activity-image"><img src="{{ page.image | relative_url }}" alt="{{ page.title | escape }}"></div>
+  {% endif %}
+  <article class="post-content">{{ content }}</article>
+  {% if page.external_url %}<p><a class="chip-link" href="{{ page.external_url }}">source ↗</a></p>{% endif %}
+</main>

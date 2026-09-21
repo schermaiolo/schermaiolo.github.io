@@ -1,0 +1,14 @@
+---
+layout: default
+nav: prj
+title: Projects
+permalink: /prj/
+archive_page: true
+---
+<main class="page-main archive-page-main">
+    <p class="page-kicker">/prj</p>
+    <h1 class="sr-only">Projects</h1>
+    <div class="page-wordmark page-wordmark-projects">{% include wordmark-prj.html %}</div>
+    <p class="page-intro">Firmware, embedded Linux, graphics, old hardware and experiments published.</p>
+    <div class="archive">{% assign projects = site.projects | sort: 'date' | reverse %}{% for project in projects %}<a class="archive-row" href="{{ project.url | relative_url }}"><span class="meta">{{ project.stack | join: ' / ' }}</span><div><h2>{{ project.title }}</h2><p>{{ project.summary }}</p></div><span class="arrow">↗</span></a>{% endfor %}</div>
+</main>

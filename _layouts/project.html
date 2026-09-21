@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<main class="page-main">
+  <a class="back-link" href="{{ '/prj/' | relative_url }}">← go back</a>
+  <p class="page-kicker">/prj</p>
+  <h1>{{ page.title }}</h1>
+  <p class="page-intro">{{ page.summary }}</p>
+  <div class="tags">{% for item in page.stack %}<span class="tag">{{ item }}</span>{% endfor %}</div>
+  <article class="post-content">{{ content }}</article>
+  <div class="content-actions">{% if page.github %}<a class="chip-link" href="{{ page.github }}" target="_blank" rel="noopener">github ↗</a>{% endif %}<a class="sponsor-link" href="https://github.com/sponsors/schermaiolo" target="_blank" rel="noopener">♡ sponsor</a></div>
+
+  {% assign related_activity = site.activity | where: 'project', page.slug | sort: 'date' | reverse %}
+  {% if related_activity.size > 0 %}
+  <section class="related-activity" aria-labelledby="project-activity-heading">
+    <h2 id="project-activity-heading">activity</h2>
+    {% for item in related_activity limit:6 %}
+    <a class="activity-mini" href="{{ item.url | relative_url }}">
+      <span class="activity-type">{{ item.activity_type | default: 'ACT' }}</span>
+      <span>{{ item.title }}</span>
+      <time datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: '%-d %b %Y' }}</time>
+    </a>
+    {% endfor %}
+  </section>
+  {% endif %}
+</main>

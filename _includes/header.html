@@ -1,0 +1,10 @@
+<header class="site-header">
+  <a class="site-id" href="{{ '/' | relative_url }}">schermaiolo.dev</a>
+  <nav aria-label="Primary">
+    <a{% if page.nav == 'home' %} class="active"{% endif %} href="{{ '/' | relative_url }}">home</a>
+    <a{% if page.nav == 'prj' %} class="active"{% endif %} href="{{ '/prj/' | relative_url }}">prj</a>
+    <a{% if page.nav == 'log' %} class="active"{% endif %} href="{{ '/log/' | relative_url }}">log</a>
+    <a{% if page.nav == 'activity' or page.layout == 'activity' %} class="active"{% endif %} href="{{ '/activity/' | relative_url }}">activity</a>
+    <a{% if page.nav == 'about' %} class="active"{% endif %} href="{{ '/about/' | relative_url }}">about</a>
+  </nav>
+</header>

@@ -1,0 +1,31 @@
+---
+layout: default
+nav: log
+title: Log
+permalink: /log/
+archive_page: true
+---
+
+<main class="page-main archive-page-main">
+    <p class="page-kicker">/log</p>
+    <h1 class="sr-only">Log</h1>
+    <div class="page-wordmark page-wordmark-log">
+    <svg class="bitmap-logo" viewBox="0 0 165 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LOG">
+        <rect x="0" y="0" width="9" height="9"/><rect x="0" y="10" width="9" height="9"/><rect x="0" y="20" width="9" height="9"/><rect x="0" y="30" width="9" height="9"/><rect x="0" y="40" width="9" height="9"/><rect x="0" y="50" width="9" height="9"/><rect x="0" y="60" width="9" height="9"/><rect x="10" y="60" width="9" height="9"/><rect x="20" y="60" width="9" height="9"/><rect x="30" y="60" width="9" height="9"/><rect x="40" y="60" width="9" height="9"/><rect x="68" y="0" width="9" height="9"/><rect x="78" y="0" width="9" height="9"/><rect x="88" y="0" width="9" height="9"/><rect x="58" y="10" width="9" height="9"/><rect x="98" y="10" width="9" height="9"/><rect x="58" y="20" width="9" height="9"/><rect x="98" y="20" width="9" height="9"/><rect x="58" y="30" width="9" height="9"/><rect x="98" y="30" width="9" height="9"/><rect x="58" y="40" width="9" height="9"/><rect x="98" y="40" width="9" height="9"/><rect x="58" y="50" width="9" height="9"/><rect x="98" y="50" width="9" height="9"/><rect x="68" y="60" width="9" height="9"/><rect x="78" y="60" width="9" height="9"/><rect x="88" y="60" width="9" height="9"/><rect x="126" y="0" width="9" height="9"/><rect x="136" y="0" width="9" height="9"/><rect x="146" y="0" width="9" height="9"/><rect x="116" y="10" width="9" height="9"/><rect x="156" y="10" width="9" height="9"/><rect x="116" y="20" width="9" height="9"/><rect x="116" y="30" width="9" height="9"/><rect x="136" y="30" width="9" height="9"/><rect x="146" y="30" width="9" height="9"/><rect x="156" y="30" width="9" height="9"/><rect x="116" y="40" width="9" height="9"/><rect x="156" y="40" width="9" height="9"/><rect x="116" y="50" width="9" height="9"/><rect x="156" y="50" width="9" height="9"/><rect x="126" y="60" width="9" height="9"/><rect x="136" y="60" width="9" height="9"/><rect x="146" y="60" width="9" height="9"/>
+    </svg>
+    </div>
+    <p class="page-intro">Just stuff I express my desparation/appreciation/opinion about.</p>
+    <div class="archive">
+      {% assign logs = site.posts | sort: 'date' | reverse %}
+      {% for post in logs %}
+      <a class="archive-row" href="{{ post.url | relative_url }}">
+        <span class="meta">{{ post.kind | default: 'LOG' }} · {{ post.date | date: '%-d %b %Y' }}</span>
+        <div>
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.summary }}</p>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+      {% endfor %}
+    </div>
+</main>

@@ -1,0 +1,19 @@
+title: schermaiolo.dev
+description: Embedded software, projects and technical writing by Daniel Fridman.
+url: https://schermaiolo.dev
+baseurl: ""
+permalink: /log/:year/:month/:day/:title/
+collections:
+  projects:
+    output: true
+    permalink: /prj/:name/
+  activity:
+    output: true
+    permalink: /activity/:name/
+exclude:
+  - vendor
+  - .bundle
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - hidden
