@@ -1,0 +1,53 @@
+<dialog class="contact-board" id="contact-board" aria-labelledby="contact-board-title">
+  <div class="contact-board-shell">
+    <header class="contact-board-header">
+      <div>
+        <div class="contact-board-title" id="contact-board-title">CONTACT BOARD // REV A</div>
+        <div class="contact-board-subtitle">schermaiolo.dev / contact interface</div>
+      </div>
+
+      <div class="contact-board-leds" aria-hidden="true">
+        <span class="contact-led"><i class="contact-led-dot contact-led-power"></i>PWR</span>
+        <span class="contact-led"><i class="contact-led-dot contact-led-link"></i>LINK</span>
+      </div>
+
+      <button class="contact-board-close" type="button" data-contact-close aria-label="Close contact board">×</button>
+    </header>
+
+    <div class="contact-lcd-frame">
+      <div class="contact-lcd">
+        <div class="contact-lcd-status" data-contact-status aria-live="polite">BOOTING...</div>
+
+        <div class="contact-ready" data-contact-ready hidden>
+          <div class="contact-ready-header">CONTACT READY</div>
+
+          <div class="contact-field">
+            <span class="contact-label">EMAIL</span>
+            <div class="contact-value-row">
+              <a class="contact-value" href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
+              <button
+                class="contact-copy"
+                type="button"
+                data-copy-email
+                data-email="{{ site.contact.email | escape }}"
+              >copy</button>
+            </div>
+          </div>
+
+          <div class="contact-field">
+            <span class="contact-label">LINKEDIN</span>
+            <a class="contact-value contact-linkedin" href="{{ site.contact.linkedin }}" target="_blank" rel="noopener">
+              linkedin.com/in/fridmandaniel ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="contact-board-footer" aria-hidden="true">
+      <span>MCU: ONLINE</span>
+      <span>UART0: READY</span>
+      <span>FW: contact-1.0</span>
+    </footer>
+  </div>
+</dialog>

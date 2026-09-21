@@ -190,10 +190,15 @@ h1 {
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
 .chip-link {
+  appearance: none;
   border: 1px solid var(--line);
   background: rgba(17,19,26,.78);
+  color: inherit;
   padding: 6px 10px;
+  font: inherit;
   font-size: .88rem;
+  line-height: inherit;
+  cursor: pointer;
 }
 .chip-link.primary { border-color: var(--yellow); color: #111; background: var(--yellow); }
 .chip-link:hover { border-color: var(--cyan); }
@@ -451,6 +456,10 @@ h1 {
   line-height: 1.5;
 }
 
+.about-contact-trigger {
+  margin-top: 12px;
+}
+
 /* About keeps sponsorship separate from the normal external-links list. */
 .about-support {
   margin-top: 34px;
@@ -559,7 +568,7 @@ h1 {
   .tag { font-size: .54rem; }
   .project-card h3 { margin: 5px 0 2px; font-size: .86rem; }
   .project-card p { font-size: .63rem; line-height: 1.18; }
-  .project-card > a { padding-top: 3px; font-size: .6rem; }
+  .project-card .project-open { padding-top: 3px; font-size: .6rem; }
   .latest-item { padding: 4px 2px; }
   .latest-item h3 { font-size: .76rem; }
   .latest-item time, .latest-type { font-size: .57rem; }
@@ -721,3 +730,296 @@ article.post-content tbody tr:hover {
   }
 }
 
+/* Contact board modal: a small fake embedded target with an LCD boot sequence. */
+.contact-board {
+  width: min(520px, calc(100vw - 28px));
+  max-width: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--body-text);
+}
+
+.contact-board::backdrop {
+  background: rgba(3,4,8,.76);
+  backdrop-filter: blur(2px);
+}
+
+.contact-board-shell {
+  position: relative;
+  padding: 14px;
+  border: 1px solid #3b4050;
+  background:
+    linear-gradient(90deg, transparent 0 9%, rgba(61,188,194,.05) 9% 9.35%, transparent 9.35% 100%),
+    linear-gradient(0deg, transparent 0 78%, rgba(132,239,155,.04) 78% 78.35%, transparent 78.35% 100%),
+    #10131a;
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.025);
+}
+
+.contact-board-shell::before,
+.contact-board-shell::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 1px solid #484d5d;
+  border-radius: 50%;
+  background: #090b10;
+}
+
+.contact-board-shell::before { left: 7px; bottom: 7px; }
+.contact-board-shell::after { right: 7px; bottom: 7px; }
+
+.contact-board-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: start;
+  gap: 14px;
+  padding: 1px 2px 11px;
+}
+
+.contact-board-title,
+.contact-board-subtitle,
+.contact-board-leds,
+.contact-board-close,
+.contact-ready-header,
+.contact-label,
+.contact-copy,
+.contact-board-footer {
+  font-family: var(--font-ui);
+}
+
+.contact-board-title {
+  color: var(--green);
+  font-size: .82rem;
+  letter-spacing: .055em;
+}
+
+.contact-board-subtitle {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: .63rem;
+}
+
+.contact-board-leds {
+  display: flex;
+  gap: 9px;
+  padding-top: 2px;
+  color: #8f93a0;
+  font-size: .58rem;
+}
+
+.contact-led {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.contact-led-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #343844;
+}
+
+.contact-led-power {
+  background: var(--green);
+  box-shadow: 0 0 7px rgba(132,239,155,.42);
+}
+
+.contact-board.is-ready .contact-led-link {
+  background: var(--cyan);
+  box-shadow: 0 0 7px rgba(61,188,194,.42);
+}
+
+.contact-board-close {
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 1px solid #3b4050;
+  background: #0c0e14;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 20px;
+}
+
+.contact-board-close:hover,
+.contact-board-close:focus-visible {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  outline: none;
+}
+
+.contact-lcd-frame {
+  padding: 8px;
+  border: 1px solid #333846;
+  background: #090b0f;
+  box-shadow: inset 0 0 0 2px #161a22;
+}
+
+.contact-lcd {
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+  padding: 16px 17px;
+  border: 1px solid rgba(132,239,155,.22);
+  background:
+    linear-gradient(rgba(132,239,155,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(132,239,155,.018) 1px, transparent 1px),
+    #07100b;
+  background-size: 100% 4px, 8px 100%, auto;
+  color: #8deca4;
+  font-family: var(--font-body);
+  text-shadow: 0 0 7px rgba(132,239,155,.18);
+}
+
+.contact-lcd::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 3px,
+    rgba(0,0,0,.13) 3px 4px
+  );
+}
+
+.contact-lcd-status {
+  position: relative;
+  z-index: 1;
+  white-space: pre-line;
+  font-size: .88rem;
+  line-height: 1.7;
+}
+
+.contact-ready {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-ready[hidden],
+.contact-lcd-status[hidden] {
+  display: none;
+}
+
+.contact-ready-header {
+  margin-bottom: 20px;
+  color: #b7ffc6;
+  font-size: .86rem;
+  letter-spacing: .05em;
+}
+
+.contact-field + .contact-field {
+  margin-top: 18px;
+}
+
+.contact-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #5fae73;
+  font-size: .64rem;
+}
+
+.contact-value-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-value {
+  min-width: 0;
+  color: #b7ffc6;
+  font-size: .82rem;
+  overflow-wrap: anywhere;
+}
+
+.contact-value:hover {
+  color: #ffffff;
+}
+
+.contact-copy {
+  flex: 0 0 auto;
+  appearance: none;
+  padding: 3px 7px;
+  border: 1px solid rgba(132,239,155,.28);
+  background: rgba(132,239,155,.055);
+  color: #8deca4;
+  cursor: pointer;
+  font-size: .62rem;
+}
+
+.contact-copy:hover,
+.contact-copy:focus-visible {
+  border-color: #8deca4;
+  color: #d8ffe0;
+  outline: none;
+}
+
+.contact-linkedin {
+  display: inline-block;
+}
+
+.contact-board-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 18px;
+  padding: 10px 3px 0;
+  color: #747986;
+  font-size: .55rem;
+  letter-spacing: .04em;
+}
+
+@media (max-width: 640px) {
+  .contact-board {
+    width: min(100% - 18px, 520px);
+  }
+
+  .contact-board-shell {
+    padding: 11px;
+  }
+
+  .contact-board-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .contact-board-leds {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 0;
+  }
+
+  .contact-board-close {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .contact-lcd {
+    min-height: 235px;
+    padding: 14px;
+  }
+
+  .contact-value-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .contact-board-footer {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-board,
+  .contact-board * {
+    scroll-behavior: auto !important;
+  }
+}

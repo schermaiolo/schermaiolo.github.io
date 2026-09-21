@@ -2,6 +2,9 @@ title: schermaiolo.dev
 description: Embedded software, projects and technical writing by Daniel Fridman.
 url: https://schermaiolo.dev
 baseurl: ""
+contact:
+  email: daniel.fridman-dev@proton.me
+  linkedin: https://www.linkedin.com/in/fridmandaniel/
 permalink: /log/:year/:month/:day/:title/
 collections:
   projects:
