@@ -44,12 +44,15 @@
       return;
     }
 
-    setStatus("BOOTING...");
-    queue(420, () => setStatus("BOOTING...\nLCD OK"));
-    queue(820, () => setStatus("GETTING INFO..."));
-    queue(1180, () => setStatus(""));
-    queue(1380, () => setStatus("CONTACT READY"));
-    queue(1600, showReady);
+    setStatus("> BOOT ROM OK");
+    queue(280, () => setStatus("> BOOT ROM OK\n> GPIO INIT..."));
+    queue(620, () => setStatus("> BOOT ROM OK\n> GPIO INIT...\n> SPI SETUP..."));
+    queue(980, () => setStatus("> BOOT ROM OK\n> GPIO INIT...\n> SPI SETUP...\n> I2C SETUP..."));
+    queue(1340, () => setStatus("> BOOT ROM OK\n> GPIO INIT...\n> SPI SETUP...\n> I2C SETUP...\n> OLED INIT..."));
+    queue(1700, () => setStatus("> GPIO INIT...\n> SPI SETUP...\n> I2C SETUP...\n> OLED INIT...\n> BUFFER CLEAR"));
+    queue(2040, () => setStatus("> SPI SETUP...\n> I2C SETUP...\n> OLED INIT...\n> BUFFER CLEAR\n> GETTING INFO..."));
+    queue(2440, () => setStatus("> I2C SETUP...\n> OLED INIT...\n> BUFFER CLEAR\n> GETTING INFO...\n\n> CONTACT READY"));
+    queue(2800, showReady);
   };
 
   const openDialog = () => {

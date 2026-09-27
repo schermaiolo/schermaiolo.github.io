@@ -1,0 +1,195 @@
+<dialog class="profile-debugger profile-terminal" id="profile-debugger" aria-labelledby="profile-terminal-title">
+  <div class="profile-terminal-window">
+    <header class="profile-terminal-titlebar">
+      <div class="profile-terminal-identity">
+        <span class="profile-terminal-dot" aria-hidden="true"></span>
+        <div>
+          <div class="profile-terminal-title" id="profile-terminal-title">schermaiolo.dev</div>
+          <div class="profile-terminal-path">~/cv</div>
+        </div>
+      </div>
+
+      <div class="profile-terminal-status" aria-hidden="true">
+        <span>ssh</span>
+        <span>tty0</span>
+      </div>
+
+      <button class="profile-terminal-close" type="button" data-profile-close aria-label="Close CV terminal">×</button>
+    </header>
+
+    <nav class="profile-terminal-tabs" role="tablist" aria-label="CV sections">
+      <button
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls="profile-panel-overview"
+        id="profile-tab-overview"
+        data-profile-tab="overview"
+        data-profile-command="cat ~/cv/profile.txt"
+      >/profile</button>
+
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="profile-panel-experience"
+        id="profile-tab-experience"
+        data-profile-tab="experience"
+        data-profile-command="cat ~/cv/experience.log"
+      >/experience</button>
+
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="profile-panel-stack"
+        id="profile-tab-stack"
+        data-profile-tab="stack"
+        data-profile-command="cat ~/cv/toolchain.conf"
+      >/stack</button>
+
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="profile-panel-education"
+        id="profile-tab-education"
+        data-profile-tab="education"
+        data-profile-command="cat ~/cv/education.txt"
+      >/education</button>
+    </nav>
+
+    <div class="profile-terminal-body">
+      <div class="profile-terminal-line" aria-live="polite">
+        <span class="terminal-user">daniel@schermaiolo</span><span class="terminal-colon">:</span><span class="terminal-path">~/cv</span><span class="terminal-prompt">$</span>
+        <span class="terminal-command" data-profile-command-output></span><span class="terminal-cursor" data-profile-cursor aria-hidden="true">_</span>
+      </div>
+
+      <div class="profile-terminal-output" data-profile-output>
+        <section
+          class="profile-terminal-panel is-active"
+          id="profile-panel-overview"
+          role="tabpanel"
+          aria-labelledby="profile-tab-overview"
+          data-profile-panel="overview"
+        >
+          <div class="terminal-comment"># public engineering profile</div>
+          <h2>Daniel Fridman</h2>
+          <p class="terminal-role">Embedded Systems Engineer</p>
+
+          <p>
+            Approximately five years of experience in C and C++, focused on low-level
+            development, SDK integration and debugging across automotive, industrial
+            and edge-AI systems.
+          </p>
+
+          <dl class="terminal-kv">
+            <div><dt>focus</dt><dd>Bare-metal / RTOS / Embedded Linux</dd></div>
+            <div><dt>current</dt><dd>Automotive MCU SDK development</dd></div>
+            <div><dt>debug</dt><dd>JTAG / Lauterbach / SEGGER / GDB</dd></div>
+            <div><dt>systems</dt><dd>Automotive / Industrial / Edge AI</dd></div>
+          </dl>
+        </section>
+
+        <section
+          class="profile-terminal-panel"
+          id="profile-panel-experience"
+          role="tabpanel"
+          aria-labelledby="profile-tab-experience"
+          data-profile-panel="experience"
+          hidden
+        >
+          <div class="terminal-comment"># newest first</div>
+
+          <div class="terminal-experience">
+            <article>
+              <time>[2025-now]</time>
+              <div>
+                <h3>STMicroelectronics <span>(via Cosmico)</span></h3>
+                <p>Automotive Embedded Engineer</p>
+                <small>STELLAR SDK / FreeRTOS / CAN / LIN / Ethernet / TSN / JTAG</small>
+              </div>
+            </article>
+
+            <article>
+              <time>[2024-2025]</time>
+              <div>
+                <h3>Col Group</h3>
+                <p>Firmware Engineer</p>
+                <small>PowerPC / Embedded Linux / Xenomai / industrial systems</small>
+              </div>
+            </article>
+
+            <article>
+              <time>[2021-2024]</time>
+              <div>
+                <h3>Movia SpA</h3>
+                <p>Embedded Software Engineer</p>
+                <small>Yocto / NVIDIA Jetson / C++ / TensorRT / Edge AI</small>
+              </div>
+            </article>
+
+            <article>
+              <time>[2021]</time>
+              <div>
+                <h3>STMicroelectronics</h3>
+                <p>Thesis Intern</p>
+                <small>CAD division / access-control research</small>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section
+          class="profile-terminal-panel"
+          id="profile-panel-stack"
+          role="tabpanel"
+          aria-labelledby="profile-tab-stack"
+          data-profile-panel="stack"
+          hidden
+        >
+          <div class="terminal-comment"># toolchain.conf</div>
+
+          <div class="terminal-config">
+            <p><span>LANG</span>=C,C++,Python,C#</p>
+            <p><span>RTOS</span>=FreeRTOS,Xenomai,ISR,scheduling</p>
+            <p><span>ARCH</span>=ARM_Cortex-M/R,PowerPC,x86,NVIDIA_Jetson</p>
+            <p><span>NETWORK</span>=CAN,LIN,Ethernet,TCP/UDP,TSN</p>
+            <p><span>DEBUG</span>=Lauterbach_TRACE32,SEGGER_J-Link,GDB,Wireshark</p>
+            <p><span>BUILD_OS</span>=Yocto,Embedded_Linux,CMake,Make,Autotools</p>
+          </div>
+        </section>
+
+        <section
+          class="profile-terminal-panel"
+          id="profile-panel-education"
+          role="tabpanel"
+          aria-labelledby="profile-tab-education"
+          data-profile-panel="education"
+          hidden
+        >
+          <div class="terminal-comment"># education.txt</div>
+
+          <div class="terminal-education">
+            <p><time>2026</time><span>Master's Degree in Computer Engineering</span></p>
+            <p><time>2021</time><span>Bachelor's Degree in Computer Engineering</span></p>
+          </div>
+
+          <div class="terminal-comment terminal-comment-spaced"># languages</div>
+          <p>English / Italian / Russian / French / Hebrew</p>
+        </section>
+      </div>
+
+      <div class="profile-terminal-ready-line">
+        <span class="terminal-user">daniel@schermaiolo</span><span class="terminal-colon">:</span><span class="terminal-path">~/cv</span><span class="terminal-prompt">$</span>
+        <span class="terminal-idle-cursor">_</span>
+      </div>
+    </div>
+
+    <footer class="profile-terminal-footer">
+      <a href="https://www.linkedin.com/in/fridmandaniel/" target="_blank" rel="noopener">linkedin ↗</a>
+      <a href="https://github.com/schermaiolo" target="_blank" rel="noopener">github ↗</a>
+      <span class="profile-terminal-footer-status">~/cv · read-only</span>
+    </footer>
+  </div>
+</dialog>

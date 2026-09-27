@@ -120,30 +120,41 @@ nav,
   font-family: var(--font-body);
 }
 
-/* Desktop homepage is deliberately one viewport. Secondary pages can scroll. */
-.home-shell {
-  min-height: 100dvh;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) 34px;
+/* Character watermarks shared by the homepage, archives and detail pages. */
+.page-bg-shell {
   position: relative;
   isolation: isolate;
 }
 
-/* Home-only character watermark. Keep it quieter than the grid and text. */
-.home-shell::before {
+.page-bg-shell::before {
   content: "";
   position: absolute;
   inset: 56px 0 34px;
   z-index: 0;
   pointer-events: none;
-  background: url("/assets/images/backgrounds/sumireko.png") no-repeat right 5% top 14%;
+  background-repeat: no-repeat;
+  background-position: right 5% top 14%;
   background-size: min(31vw, 360px) auto;
   opacity: .045;
+  filter: grayscale(1);
 }
 
-.home-shell > * {
+.bg-sumireko::before { background-image: url("/assets/images/backgrounds/sumireko.png"); }
+.bg-satou::before { background-image: url("/assets/images/backgrounds/satou.png"); }
+.bg-alya::before { background-image: url("/assets/images/backgrounds/alya.png"); }
+.bg-umi::before { background-image: url("/assets/images/backgrounds/umi.png"); }
+.bg-youmu::before { background-image: url("/assets/images/backgrounds/youmu.png"); }
+
+.page-bg-shell > * {
   position: relative;
   z-index: 1;
+}
+
+/* Desktop homepage is deliberately one viewport. Secondary pages can scroll. */
+.home-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) 34px;
 }
 .home-main {
   min-height: 0;
@@ -592,7 +603,7 @@ h1 {
   .project-card { min-height: 145px; }
   .project-gallery-grid { grid-template-columns: 1fr; }
   .home-main { overflow: visible; }
-  .home-shell::before {
+  .page-bg-shell::before {
     background-position: right -18px top 115px;
     background-size: 170px auto;
   }
@@ -730,263 +741,118 @@ article.post-content tbody tr:hover {
   }
 }
 
-/* Contact board modal: a small fake embedded target with an LCD boot sequence. */
-.contact-board {
-  width: min(520px, calc(100vw - 28px));
-  max-width: none;
-  margin: auto;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--body-text);
-}
+/* Contact board modal: clean ESP32-C3 + SSD1306 debug rig. */
+.contact-board { width:min(900px,calc(100vw - 24px)); max-width:none; margin:auto; padding:0; border:0; background:transparent; color:var(--body-text); }
+.contact-board::backdrop { background:rgba(3,4,8,.82); backdrop-filter:blur(3px); }
 
-.contact-board::backdrop {
-  background: rgba(3,4,8,.76);
-  backdrop-filter: blur(2px);
-}
+.contact-rig { position:relative; padding:15px; border:1px solid #39404c; background:radial-gradient(circle at 15% 8%,rgba(61,188,194,.045),transparent 23%),#0d1015; box-shadow:0 28px 90px rgba(0,0,0,.66),inset 0 0 0 1px rgba(255,255,255,.018); }
+.contact-rig-header { display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:start; gap:14px; padding:1px 2px 12px; }
 
-.contact-board-shell {
-  position: relative;
-  padding: 14px;
-  border: 1px solid #3b4050;
-  background:
-    linear-gradient(90deg, transparent 0 9%, rgba(61,188,194,.05) 9% 9.35%, transparent 9.35% 100%),
-    linear-gradient(0deg, transparent 0 78%, rgba(132,239,155,.04) 78% 78.35%, transparent 78.35% 100%),
-    #10131a;
-  box-shadow:
-    0 22px 70px rgba(0,0,0,.55),
-    inset 0 0 0 1px rgba(255,255,255,.025);
-}
+.contact-board-title,.contact-board-subtitle,.contact-board-leds,.contact-board-close,.contact-ready-header,.contact-label,.contact-copy,.contact-board-footer,.pcb-silk,.jumper-labels,.display-silk,.display-footer,.pcb-led,.pcb-button { font-family:var(--font-ui); }
+.contact-board-title { color:var(--text); font-size:.91rem; letter-spacing:.055em; }
+.contact-board-subtitle { margin-top:3px; color:var(--muted); font-size:.65rem; }
+.contact-board-leds { display:flex; gap:11px; padding-top:3px; color:#9095a1; font-size:.57rem; }
+.contact-led { display:inline-flex; align-items:center; gap:5px; }
+.contact-led-dot { width:7px; height:7px; border-radius:50%; background:#343844; }
+.contact-led-power { background:var(--green); box-shadow:0 0 8px rgba(132,239,155,.48); }
+.contact-board.is-ready .contact-led-link { background:var(--cyan); box-shadow:0 0 8px rgba(61,188,194,.46); }
 
-.contact-board-shell::before,
-.contact-board-shell::after {
-  content: "";
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border: 1px solid #484d5d;
-  border-radius: 50%;
-  background: #090b10;
-}
+.contact-board-close { appearance:none; width:28px; height:28px; padding:0; border:1px solid #3b4050; background:#0c0e14; color:var(--muted); cursor:pointer; font-size:1rem; line-height:23px; }
+.contact-board-close:hover,.contact-board-close:focus-visible { color:var(--cyan); border-color:var(--cyan); outline:none; }
 
-.contact-board-shell::before { left: 7px; bottom: 7px; }
-.contact-board-shell::after { right: 7px; bottom: 7px; }
+.contact-hardware { display:grid; grid-template-columns:320px 122px minmax(0,1fr); align-items:center; gap:0; min-height:360px; padding:16px 14px; border:1px solid #20242e; background:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px),#080a0e; background-size:22px 22px; }
 
-.contact-board-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
-  align-items: start;
-  gap: 14px;
-  padding: 1px 2px 11px;
-}
+.contact-devboard { position:relative; width:300px; height:330px; justify-self:center; overflow:hidden; border:1px solid #363b40; border-radius:4px; background:radial-gradient(circle at 18% 22%,rgba(255,255,255,.028) 0 1px,transparent 1.5px),#171c1e; background-size:18px 18px,auto; box-shadow:0 12px 30px rgba(0,0,0,.36),inset 0 0 0 2px rgba(255,255,255,.018); }
 
-.contact-board-title,
-.contact-board-subtitle,
-.contact-board-leds,
-.contact-board-close,
-.contact-ready-header,
-.contact-label,
-.contact-copy,
-.contact-board-footer {
-  font-family: var(--font-ui);
-}
+.pcb-hole,.display-hole { position:absolute; z-index:20; width:14px; height:14px; border:3px solid #c7a85e; border-radius:50%; background:#0b0d0f; box-shadow:0 0 0 1px #16191c; }
+.hole-tl{top:8px;left:8px}.hole-tr{top:8px;right:8px}.hole-bl{bottom:8px;left:8px}.hole-br{bottom:8px;right:8px}
 
-.contact-board-title {
-  color: var(--green);
-  font-size: .82rem;
-  letter-spacing: .055em;
-}
+.pcb-header { position:absolute; top:39px; bottom:44px; width:15px; border:1px solid #090b0c; background:radial-gradient(circle,#d0ad5f 0 2.3px,#4e3a16 2.8px 4.4px,#080909 4.8px 6.1px,transparent 6.5px) center top/13px 20px repeat-y; }
+.pcb-header-left{left:5px}.pcb-header-right{right:5px}
 
-.contact-board-subtitle {
-  margin-top: 2px;
-  color: var(--muted);
-  font-size: .63rem;
-}
+.esp32-left-labels,.esp32-right-labels { position:absolute; top:45px; z-index:7; display:grid; gap:7px; color:rgba(236,239,232,.70); font-size:.37rem; line-height:1; }
+.esp32-left-labels{left:24px;text-align:left}.esp32-right-labels{right:24px;text-align:right}
 
-.contact-board-leds {
-  display: flex;
-  gap: 9px;
-  padding-top: 2px;
-  color: #8f93a0;
-  font-size: .58rem;
-}
+.esp32-rf-module { position:absolute; top:17px; left:72px; width:156px; height:143px; }
+.esp32-antenna { position:absolute; top:0; left:0; right:0; height:43px; border:1px solid #666c6b; border-bottom:0; background:linear-gradient(90deg,transparent 0 14%,#858a87 14% 18%,transparent 18% 35%,#858a87 35% 39%,transparent 39% 55%,#858a87 55% 59%,transparent 59% 75%,#858a87 75% 79%,transparent 79% 100%),#202526; clip-path:polygon(0 0,100% 0,100% 100%,76% 100%,76% 35%,59% 35%,59% 100%,39% 100%,39% 35%,20% 35%,20% 100%,0 100%); }
+.esp32-can { position:absolute; top:44px; left:14px; width:128px; height:92px; padding:12px 9px; border:1px solid #8f9693; background:linear-gradient(145deg,#cbd0cd,#858d89 72%); color:#363b3a; text-align:left; box-shadow:0 4px 9px rgba(0,0,0,.35); }
+.esp32-can strong,.esp32-can span,.esp32-can small { display:block; font-family:var(--font-body); line-height:1.35; }
+.esp32-can strong{font-size:.56rem}.esp32-can span{font-size:.49rem}.esp32-can small{margin-top:3px;font-size:.42rem}
 
-.contact-led {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
+.esp32-core-chip { position:absolute; top:174px; left:107px; display:grid; place-items:center; width:66px; height:66px; border:1px solid #090a0b; background:#101315; box-shadow:0 4px 8px rgba(0,0,0,.42); }
+.esp32-core-chip::before,.esp32-core-chip::after { content:""; position:absolute; left:-7px; right:-7px; height:4px; background:repeating-linear-gradient(90deg,#b89d60 0 2px,transparent 2px 6px); }
+.esp32-core-chip::before{top:-5px}.esp32-core-chip::after{bottom:-5px}.chip-logo{color:#6e7776;font-size:1.3rem}
+.esp32-support-chip { position:absolute; border:1px solid #090a0b; background:#111416; }
+.chip-a{top:180px;left:185px;width:31px;height:25px}.chip-b{top:216px;left:185px;width:37px;height:29px}
+.esp32-passives { position:absolute; background:repeating-linear-gradient(90deg,#a5a190 0 8px,transparent 8px 14px); height:8px; }
+.passives-a{left:76px;top:174px;width:24px}.passives-b{left:76px;top:202px;width:24px}.passives-c{left:184px;top:256px;width:52px}
 
-.contact-led-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #343844;
-}
+.pcb-button,.pcb-led { position:absolute; display:grid; justify-items:center; gap:3px; color:rgba(236,239,232,.72); font-size:.42rem; }
+.pcb-button i { display:block; width:27px; height:27px; border:4px solid #a5aaa7; border-radius:5px; background:#1a1d1e; box-shadow:inset 0 0 0 3px #0a0c0d; }
+.pcb-button-boot{left:64px;bottom:40px}.pcb-button-reset{right:64px;bottom:40px}
+.pcb-led-rgb{left:182px;bottom:83px}.pcb-led-rgb i{display:block;width:12px;height:12px;border-radius:50%;border:2px solid #111719;background:radial-gradient(circle at 35% 35%,#c3ffcb,#35b64d 60%,#1c5128);box-shadow:0 0 9px rgba(90,255,120,.45)}
 
-.contact-led-power {
-  background: var(--green);
-  box-shadow: 0 0 7px rgba(132,239,155,.42);
-}
+.esp32-usbc { position:absolute; left:106px; bottom:-2px; width:86px; height:45px; border:1px solid #7f8785; border-radius:5px 5px 0 0; background:linear-gradient(#c6cbc8,#7b8380); box-shadow:inset 0 -8px 0 rgba(0,0,0,.10); }
+.esp32-usbc-mouth { position:absolute; top:9px; left:21px; width:44px; height:12px; border:2px solid #4f5654; border-radius:7px; background:#151819; }
+.esp32-name { position:absolute; left:107px; bottom:51px; color:rgba(236,239,232,.85); font-size:.57rem; text-align:center; }
+.esp32-name strong,.esp32-name span{display:block}
 
-.contact-board.is-ready .contact-led-link {
-  background: var(--cyan);
-  box-shadow: 0 0 7px rgba(61,188,194,.42);
-}
+.pcb-jumper-header { position:absolute; z-index:25; right:-1px; top:84px; width:35px; height:96px; padding:7px 4px; border:1px solid #090a0b; background:#151718; }
+.jumper-pin { display:block; width:10px; height:10px; margin-bottom:11px; border:2px solid #8f7740; background:#cfab58; }
+.jumper-labels { position:absolute; right:27px; top:6px; display:grid; gap:8px; color:rgba(236,239,232,.58); font-size:.39rem; text-align:right; }
 
-.contact-board-close {
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  padding: 0;
-  border: 1px solid #3b4050;
-  background: #0c0e14;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 1rem;
-  line-height: 20px;
-}
+.contact-dupont { position:relative; z-index:30; width:122px; height:250px; align-self:center; overflow:visible; filter:drop-shadow(0 3px 2px rgba(0,0,0,.36)); }
+.contact-dupont svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.dupont-wire{fill:none;stroke-width:7;stroke-linecap:round}
+.wire-vcc{stroke:#c64d47}.wire-gnd{stroke:#25282b}.wire-scl{stroke:#d4ab3c}.wire-sda{stroke:#4a8ec8}
+.dupont-end { position:absolute; top:59px; display:grid; gap:6px; padding:3px; border:1px solid #08090a; background:#17191b; }
+.dupont-end-left{left:-5px}.dupont-end-right{right:-5px}
+.dupont-end span{display:block;width:13px;height:14px;border:1px solid #090a0b;background:#17191b}
 
-.contact-board-close:hover,
-.contact-board-close:focus-visible {
-  color: var(--cyan);
-  border-color: var(--cyan);
-  outline: none;
-}
+.contact-display-module { position:relative; width:min(100%,380px); min-height:285px; padding:32px 17px 18px; border:1px solid #356686; border-radius:4px; background:radial-gradient(circle at 16% 25%,rgba(255,255,255,.04) 0 1px,transparent 1.5px),#174f70; background-size:18px 18px,auto; box-shadow:0 12px 26px rgba(0,0,0,.36),inset 0 0 0 2px rgba(255,255,255,.025); }
+.display-hole{width:12px;height:12px;border-width:2px;border-color:#d8c18c}
+.display-hole-tl{top:7px;left:7px}.display-hole-tr{top:7px;right:7px}.display-hole-bl{bottom:7px;left:7px}.display-hole-br{bottom:7px;right:7px}
+.display-silk{position:absolute;top:8px;left:40px;right:40px;display:flex;justify-content:space-between;color:rgba(235,241,237,.80);font-size:.53rem;letter-spacing:.035em}
+.display-silk small{color:rgba(235,241,237,.50);font-size:.43rem}
+.display-header { position:absolute; z-index:31; left:-31px; top:71px; display:grid; gap:5px; padding:4px 3px; border:1px solid #0c1013; background:#151719; }
+.display-header span{position:relative;display:block;width:25px;height:18px;border:1px solid #08090a;background:#17191b}
+.display-header span::after{content:attr(data-pin);position:absolute;left:30px;top:2px;color:rgba(238,239,232,.75);font:.40rem var(--font-ui)}
 
-.contact-lcd-frame {
-  padding: 8px;
-  border: 1px solid #333846;
-  background: #090b0f;
-  box-shadow: inset 0 0 0 2px #161a22;
-}
+.contact-lcd-frame { position:relative; padding:8px; border:1px solid #222933; background:#080b0e; box-shadow:inset 0 0 0 2px #11161b,0 3px 8px rgba(0,0,0,.38); }
+.contact-lcd { position:relative; min-height:205px; overflow:hidden; padding:15px 16px; border:1px solid rgba(132,239,155,.28); background:linear-gradient(rgba(132,239,155,.021) 1px,transparent 1px),linear-gradient(90deg,rgba(132,239,155,.015) 1px,transparent 1px),#06110a; background-size:100% 4px,8px 100%,auto; color:#8deca4; font-family:var(--font-body); text-shadow:0 0 8px rgba(132,239,155,.20); box-shadow:inset 0 0 24px rgba(73,174,102,.055); }
+.contact-lcd::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0 3px,rgba(0,0,0,.14) 3px 4px)}
+.contact-lcd-status{position:relative;z-index:1;white-space:pre-line;font-size:.77rem;line-height:1.5}
+.contact-ready{position:relative;z-index:1}.contact-ready[hidden],.contact-lcd-status[hidden]{display:none}
+.contact-ready-header{margin-bottom:16px;color:#b7ffc6;font-size:.84rem;letter-spacing:.05em}
+.contact-field+.contact-field{margin-top:16px}.contact-label{display:block;margin-bottom:4px;color:#5fae73;font-size:.62rem}
+.contact-value-row{display:flex;align-items:center;gap:8px}
+.contact-value{min-width:0;color:#b7ffc6;font-size:.77rem;overflow-wrap:anywhere}.contact-value:hover{color:#fff}
+.contact-copy{flex:0 0 auto;appearance:none;padding:3px 7px;border:1px solid rgba(132,239,155,.30);background:rgba(132,239,155,.055);color:#8deca4;cursor:pointer;font-size:.61rem}
+.contact-copy:hover,.contact-copy:focus-visible{border-color:#8deca4;color:#d8ffe0;outline:none}
+.contact-linkedin{display:inline-block}
+.display-footer{display:flex;justify-content:space-between;padding:7px 2px 0;color:rgba(235,241,237,.44);font-size:.40rem}
 
-.contact-lcd {
-  position: relative;
-  min-height: 220px;
-  overflow: hidden;
-  padding: 16px 17px;
-  border: 1px solid rgba(132,239,155,.22);
-  background:
-    linear-gradient(rgba(132,239,155,.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(132,239,155,.018) 1px, transparent 1px),
-    #07100b;
-  background-size: 100% 4px, 8px 100%, auto;
-  color: #8deca4;
-  font-family: var(--font-body);
-  text-shadow: 0 0 7px rgba(132,239,155,.18);
-}
+.contact-board-footer { display:grid; grid-template-columns:repeat(4,1fr); gap:0; padding:11px 3px 0; color:#7a808d; font-size:.55rem; letter-spacing:.04em; }
+.contact-board-footer span{padding:0 16px;border-right:1px solid #2a2e38}
+.contact-board-footer span:first-child{padding-left:0}.contact-board-footer span:last-child{padding-right:0;border-right:0;text-align:right}
 
-.contact-lcd::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0 3px,
-    rgba(0,0,0,.13) 3px 4px
-  );
-}
 
-.contact-lcd-status {
-  position: relative;
-  z-index: 1;
-  white-space: pre-line;
-  font-size: .88rem;
-  line-height: 1.7;
-}
-
-.contact-ready {
-  position: relative;
-  z-index: 1;
-}
-
-.contact-ready[hidden],
-.contact-lcd-status[hidden] {
+/* Dedicated vertical jumper harness used only in the stacked mobile layout. */
+.contact-dupont-mobile {
   display: none;
 }
 
-.contact-ready-header {
-  margin-bottom: 20px;
-  color: #b7ffc6;
-  font-size: .86rem;
-  letter-spacing: .05em;
-}
-
-.contact-field + .contact-field {
-  margin-top: 18px;
-}
-
-.contact-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #5fae73;
-  font-size: .64rem;
-}
-
-.contact-value-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.contact-value {
-  min-width: 0;
-  color: #b7ffc6;
-  font-size: .82rem;
-  overflow-wrap: anywhere;
-}
-
-.contact-value:hover {
-  color: #ffffff;
-}
-
-.contact-copy {
-  flex: 0 0 auto;
-  appearance: none;
-  padding: 3px 7px;
-  border: 1px solid rgba(132,239,155,.28);
-  background: rgba(132,239,155,.055);
-  color: #8deca4;
-  cursor: pointer;
-  font-size: .62rem;
-}
-
-.contact-copy:hover,
-.contact-copy:focus-visible {
-  border-color: #8deca4;
-  color: #d8ffe0;
-  outline: none;
-}
-
-.contact-linkedin {
-  display: inline-block;
-}
-
-.contact-board-footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 18px;
-  padding: 10px 3px 0;
-  color: #747986;
-  font-size: .55rem;
-  letter-spacing: .04em;
-}
-
-@media (max-width: 640px) {
+@media (max-width:760px) {
   .contact-board {
-    width: min(100% - 18px, 520px);
+    width: min(100% - 12px, 560px);
   }
 
-  .contact-board-shell {
-    padding: 11px;
+  .contact-rig {
+    padding: 10px;
   }
 
-  .contact-board-header {
-    grid-template-columns: minmax(0, 1fr) auto;
+  .contact-rig-header {
+    grid-template-columns: minmax(0,1fr) auto;
     gap: 8px;
   }
 
@@ -1001,25 +867,171 @@ article.post-content tbody tr:hover {
     grid-row: 1 / span 2;
   }
 
-  .contact-lcd {
-    min-height: 235px;
-    padding: 14px;
+  .contact-hardware {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    min-height: 0;
+    gap: 0;
+    padding: 15px 7px;
   }
 
-  .contact-value-row {
-    align-items: flex-start;
-    flex-direction: column;
+  .contact-devboard {
+    width: min(300px, calc(100vw - 64px));
+    overflow: visible;
+    z-index: 3;
+  }
+
+  /*
+   * Never rotate the horizontal desktop harness.
+   * Mobile uses a dedicated straight loom instead.
+   */
+  .contact-dupont {
+    display: none;
+  }
+
+  /* ESP32-side connector faces down toward the display. */
+  .pcb-jumper-header {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: -18px;
+    width: 104px;
+    height: 28px;
+    padding: 4px 7px;
+    display: grid;
+    grid-template-columns: repeat(4,16px);
+    justify-content: center;
     gap: 7px;
+    transform: translateX(-50%);
+    border: 1px solid #090a0b;
+    background: #151718;
+    box-shadow: 0 3px 5px rgba(0,0,0,.30);
+  }
+
+  .pcb-jumper-header .jumper-pin {
+    width: 11px;
+    height: 11px;
+    margin: 3px auto 0;
+    border: 2px solid #8f7740;
+    background: #cfab58;
+  }
+
+  .pcb-jumper-header .jumper-labels {
+    display: none;
+  }
+
+  /*
+   * Four independent female-female Dupont jumpers.
+   * Order stays 3V3 / GND / SCL / SDA.
+   */
+  .contact-dupont-mobile {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(4,16px);
+    justify-content: center;
+    gap: 7px;
+    width: 104px;
+    height: 106px;
+    margin: 14px 0 10px;
+    filter: drop-shadow(0 3px 2px rgba(0,0,0,.35));
+  }
+
+  .mobile-jumper {
+    position: relative;
+    display: block;
+    width: 6px;
+    height: 100%;
+    justify-self: center;
+    border-radius: 999px;
+  }
+
+  .mobile-jumper::before,
+  .mobile-jumper::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 16px;
+    height: 22px;
+    transform: translateX(-50%);
+    border: 1px solid #07090a;
+    border-radius: 2px;
+    background:
+      linear-gradient(90deg,rgba(255,255,255,.025),transparent 45%),
+      #17191b;
+    box-shadow: inset 0 0 0 2px #101214;
+  }
+
+  .mobile-jumper::before {
+    top: -12px;
+  }
+
+  .mobile-jumper::after {
+    bottom: -12px;
+  }
+
+  .mobile-jumper-vcc { background: #c64d47; }
+  .mobile-jumper-gnd { background: #25282b; }
+  .mobile-jumper-scl { background: #d4ab3c; }
+  .mobile-jumper-sda { background: #4a8ec8; }
+
+  .contact-display-module {
+    width: min(380px, calc(100vw - 42px));
+    z-index: 3;
+  }
+
+  /* OLED header faces upward and uses exactly the same pitch as the ESP32 header. */
+  .display-header {
+    left: 50%;
+    top: -18px;
+    display: grid;
+    grid-auto-flow: initial;
+    grid-template-columns: repeat(4,16px);
+    justify-content: center;
+    gap: 7px;
+    width: 104px;
+    padding: 4px 7px;
+    transform: translateX(-50%);
+    border: 1px solid #0c1013;
+    background: #151719;
+    box-shadow: 0 3px 5px rgba(0,0,0,.30);
+  }
+
+  .display-header span {
+    width: 11px;
+    height: 11px;
+    margin: 3px auto;
+    border: 2px solid #8f7740;
+    background: #cfab58;
+  }
+
+  .display-header span::after {
+    display: none;
   }
 
   .contact-board-footer {
-    justify-content: flex-start;
+    grid-template-columns: repeat(2,1fr);
+    row-gap: 8px;
+  }
+
+  .contact-board-footer span {
+    border-right: 0;
+    padding: 0;
+  }
+
+  .contact-board-footer span:nth-child(even) {
+    text-align: right;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .contact-board,
-  .contact-board * {
-    scroll-behavior: auto !important;
-  }
+@media (max-width:390px) {
+  .contact-devboard{transform:scale(.92);transform-origin:top center;margin-bottom:-25px}
+  .contact-display-module{width:calc(100vw - 34px);padding-inline:11px}
+  .contact-value-row{align-items:flex-start;flex-direction:column;gap:6px}
+  .contact-value{font-size:.69rem}
+  .display-silk{left:28px;right:28px}
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .contact-board,.contact-board *{scroll-behavior:auto!important}
 }

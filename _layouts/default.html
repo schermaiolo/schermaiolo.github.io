@@ -12,15 +12,30 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
   <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/profile-terminal.css' | relative_url }}?v=2">
 </head>
+{% assign background_character = '' %}
+{% if page.nav == 'home' %}
+  {% assign background_character = 'sumireko' %}
+{% elsif page.nav == 'prj' or page.layout == 'project' or page.collection == 'projects' %}
+  {% assign background_character = 'satou' %}
+{% elsif page.nav == 'log' or page.layout == 'post' or page.collection == 'posts' %}
+  {% assign background_character = 'alya' %}
+{% elsif page.nav == 'activity' or page.layout == 'activity' or page.collection == 'activity' %}
+  {% assign background_character = 'umi' %}
+{% elsif page.nav == 'about' %}
+  {% assign background_character = 'youmu' %}
+{% endif %}
 <body class="{% if page.nav == 'home' %}home-page{% endif %}{% if page.archive_page %}{% if page.nav == 'home' %} {% endif %}archive-page{% endif %}">
-  <div class="wrap{% if page.nav == 'home' %} home-shell{% endif %}">
+  <div class="wrap{% if background_character != '' %} page-bg-shell bg-{{ background_character }}{% endif %}{% if page.nav == 'home' %} home-shell{% endif %}">
     {% include header.html %}
     {{ content }}
     {% include footer.html %}
   </div>
 
   {% include contact-board.html %}
+  {% include profile-debugger.html %}
   <script src="{{ '/assets/js/contact-board.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/profile-debugger.js' | relative_url }}?v=2" defer></script>
 </body>
 </html>

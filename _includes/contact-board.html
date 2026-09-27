@@ -1,9 +1,9 @@
 <dialog class="contact-board" id="contact-board" aria-labelledby="contact-board-title">
-  <div class="contact-board-shell">
-    <header class="contact-board-header">
+  <div class="contact-rig">
+    <header class="contact-rig-header">
       <div>
-        <div class="contact-board-title" id="contact-board-title">CONTACT BOARD // REV A</div>
-        <div class="contact-board-subtitle">schermaiolo.dev / contact interface</div>
+        <div class="contact-board-title" id="contact-board-title">CONTACT DEBUG RIG // REV D</div>
+        <div class="contact-board-subtitle">ESP32-C3 SuperMini host + SSD1306 contact display</div>
       </div>
 
       <div class="contact-board-leds" aria-hidden="true">
@@ -14,40 +14,137 @@
       <button class="contact-board-close" type="button" data-contact-close aria-label="Close contact board">×</button>
     </header>
 
-    <div class="contact-lcd-frame">
-      <div class="contact-lcd">
-        <div class="contact-lcd-status" data-contact-status aria-live="polite">BOOTING...</div>
+    <div class="contact-hardware">
+      <section class="contact-devboard esp32-board" aria-hidden="true">
+        <span class="pcb-hole hole-tl"></span>
+        <span class="pcb-hole hole-tr"></span>
+        <span class="pcb-hole hole-bl"></span>
+        <span class="pcb-hole hole-br"></span>
 
-        <div class="contact-ready" data-contact-ready hidden>
-          <div class="contact-ready-header">CONTACT READY</div>
+        <div class="esp32-left-labels pcb-silk">
+          <span>3V3</span><span>GND</span><span>GPIO2</span><span>GPIO3</span>
+          <span>GPIO4</span><span>GPIO5</span><span>GPIO6</span><span>GPIO7</span>
+          <span>GPIO8</span><span>GPIO9</span><span>GPIO10</span><span>GPIO20</span><span>GPIO21</span>
+        </div>
 
-          <div class="contact-field">
-            <span class="contact-label">EMAIL</span>
-            <div class="contact-value-row">
-              <a class="contact-value" href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
-              <button
-                class="contact-copy"
-                type="button"
-                data-copy-email
-                data-email="{{ site.contact.email | escape }}"
-              >copy</button>
-            </div>
-          </div>
+        <div class="esp32-right-labels pcb-silk">
+          <span>5V</span><span>GND</span><span>SDA</span><span>SCL</span>
+          <span>TX</span><span>RX</span><span>GPIO0</span><span>GPIO1</span>
+        </div>
 
-          <div class="contact-field">
-            <span class="contact-label">LINKEDIN</span>
-            <a class="contact-value contact-linkedin" href="{{ site.contact.linkedin }}" target="_blank" rel="noopener">
-              linkedin.com/in/fridmandaniel ↗
-            </a>
+        <div class="pcb-header pcb-header-left"></div>
+        <div class="pcb-header pcb-header-right"></div>
+
+        <div class="esp32-rf-module">
+          <div class="esp32-antenna"></div>
+          <div class="esp32-can">
+            <strong>ESPRESSIF</strong>
+            <span>ESP32-C3-MINI-1</span>
+            <small>R8</small>
           </div>
         </div>
+
+        <div class="esp32-core-chip"><span class="chip-logo">◉</span></div>
+        <div class="esp32-support-chip chip-a"></div>
+        <div class="esp32-support-chip chip-b"></div>
+        <div class="esp32-passives passives-a"></div>
+        <div class="esp32-passives passives-b"></div>
+        <div class="esp32-passives passives-c"></div>
+
+        <div class="pcb-led pcb-led-rgb"><i></i><span>PWR</span></div>
+        <div class="pcb-button pcb-button-boot"><i></i><span>BOOT</span></div>
+        <div class="pcb-button pcb-button-reset"><i></i><span>RST</span></div>
+
+        <div class="esp32-usbc"><span class="esp32-usbc-mouth"></span></div>
+
+        <div class="esp32-name pcb-silk">
+          <strong>SuperMini</strong>
+          <span>ESP32-C3</span>
+        </div>
+
+        <div class="pcb-jumper-header">
+          <span class="jumper-pin pin-vcc"></span>
+          <span class="jumper-pin pin-gnd"></span>
+          <span class="jumper-pin pin-scl"></span>
+          <span class="jumper-pin pin-sda"></span>
+          <div class="jumper-labels">
+            <span>3V3</span><span>GND</span><span>SCL</span><span>SDA</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="contact-dupont" aria-hidden="true">
+        <svg viewBox="0 0 150 250" preserveAspectRatio="none" role="presentation">
+          <path class="dupont-wire wire-vcc" d="M 4 70 C 42 70, 51 44, 82 44 S 114 70, 146 70"></path>
+          <path class="dupont-wire wire-gnd" d="M 4 92 C 43 92, 50 84, 82 95 S 116 101, 146 101"></path>
+          <path class="dupont-wire wire-scl" d="M 4 114 C 42 114, 54 134, 83 136 S 116 132, 146 132"></path>
+          <path class="dupont-wire wire-sda" d="M 4 136 C 42 136, 51 168, 84 168 S 116 163, 146 163"></path>
+        </svg>
+        <div class="dupont-end dupont-end-left"><span></span><span></span><span></span><span></span></div>
+        <div class="dupont-end dupont-end-right"><span></span><span></span><span></span><span></span></div>
       </div>
+
+      <div class="contact-dupont-mobile" aria-hidden="true">
+        <span class="mobile-jumper mobile-jumper-vcc"></span>
+        <span class="mobile-jumper mobile-jumper-gnd"></span>
+        <span class="mobile-jumper mobile-jumper-scl"></span>
+        <span class="mobile-jumper mobile-jumper-sda"></span>
+      </div>
+
+      <section class="contact-display-module ssd1306-module">
+        <span class="display-hole display-hole-tl"></span>
+        <span class="display-hole display-hole-tr"></span>
+        <span class="display-hole display-hole-bl"></span>
+        <span class="display-hole display-hole-br"></span>
+
+        <div class="display-silk">
+          <span>SSD1306 0.96" OLED</span>
+          <small>128×64 I²C</small>
+        </div>
+
+        <div class="display-header oled-header" aria-hidden="true">
+          <span data-pin="VCC"></span>
+          <span data-pin="GND"></span>
+          <span data-pin="SCL"></span>
+          <span data-pin="SDA"></span>
+        </div>
+
+        <div class="contact-lcd-frame">
+          <div class="contact-lcd">
+            <div class="contact-lcd-status" data-contact-status aria-live="polite">BOOT ROM OK</div>
+
+            <div class="contact-ready" data-contact-ready hidden>
+              <div class="contact-ready-header">CONTACT READY</div>
+
+              <div class="contact-field">
+                <span class="contact-label">EMAIL</span>
+                <div class="contact-value-row">
+                  <a class="contact-value" href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a>
+                  <button class="contact-copy" type="button" data-copy-email data-email="{{ site.contact.email | escape }}">copy</button>
+                </div>
+              </div>
+
+              <div class="contact-field">
+                <span class="contact-label">LINKEDIN</span>
+                <a class="contact-value contact-linkedin" href="{{ site.contact.linkedin }}" target="_blank" rel="noopener">
+                  linkedin.com/in/fridmandaniel ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="display-footer" aria-hidden="true">
+          <span>VCC</span><span>GND</span><span>SCL</span><span>SDA</span>
+        </div>
+      </section>
     </div>
 
     <footer class="contact-board-footer" aria-hidden="true">
-      <span>MCU: ONLINE</span>
-      <span>UART0: READY</span>
-      <span>FW: contact-1.0</span>
+      <span>HOST: ESP32-C3</span>
+      <span>I²C: READY</span>
+      <span>OLED: SSD1306</span>
+      <span>FW: contact-4.0</span>
     </footer>
   </div>
 </dialog>
