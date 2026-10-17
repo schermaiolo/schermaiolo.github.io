@@ -814,8 +814,11 @@ article.post-content tbody tr:hover {
 .display-hole-tl{top:7px;left:7px}.display-hole-tr{top:7px;right:7px}.display-hole-bl{bottom:7px;left:7px}.display-hole-br{bottom:7px;right:7px}
 .display-silk{position:absolute;top:8px;left:40px;right:40px;display:flex;justify-content:space-between;color:rgba(235,241,237,.80);font-size:.53rem;letter-spacing:.035em}
 .display-silk small{color:rgba(235,241,237,.50);font-size:.43rem}
-.display-header { position:absolute; z-index:31; left:-31px; top:71px; display:grid; gap:5px; padding:4px 3px; border:1px solid #0c1013; background:#151719; }
+/* Keep the OLED sockets aligned with the four Dupont housings (20px pitch). */
+.display-header { position:absolute; z-index:31; left:-31px; top:75.5px; display:grid; gap:2px; padding:4px 3px; border:1px solid #0c1013; background:#151719; }
 .display-header span{position:relative;display:block;width:25px;height:18px;border:1px solid #08090a;background:#17191b}
+/* Exposed gold contacts bridge each Dupont plug to the OLED PCB. */
+.display-header span::before{content:"";position:absolute;left:26px;top:7px;width:30px;height:4px;background:linear-gradient(90deg,#f2d582,#c9a24f 62%,#8a6a31);box-shadow:0 0 0 1px rgba(55,41,19,.58)}
 .display-header span::after{content:attr(data-pin);position:absolute;left:30px;top:2px;color:rgba(238,239,232,.75);font:.40rem var(--font-ui)}
 
 .contact-lcd-frame { position:relative; padding:8px; border:1px solid #222933; background:#080b0e; box-shadow:inset 0 0 0 2px #11161b,0 3px 8px rgba(0,0,0,.38); }
@@ -1005,6 +1008,8 @@ article.post-content tbody tr:hover {
     background: #cfab58;
   }
 
+  /* Mobile uses upward-facing header pins, not the desktop side contacts. */
+  .display-header span::before,
   .display-header span::after {
     display: none;
   }
