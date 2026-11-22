@@ -1,0 +1,45 @@
+<!-- Page-local styles: independent of the site's existing styles.css. -->
+<style>
+  .post-content .tinysr-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(8px, 2vw, 18px);
+    align-items: start;
+    margin: 24px 0;
+  }
+  .post-content .tinysr-comparison figure {
+    min-width: 0;
+    margin: 0;
+  }
+  .post-content .tinysr-comparison img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-width: 100%;
+    max-height: none;
+    margin: 0;
+    object-fit: contain;
+  }
+  .post-content .tinysr-comparison figcaption {
+    margin-top: 7px;
+    font-family: var(--font-ui);
+    font-size: .9rem;
+    color: var(--text);
+    text-align: center;
+  }
+  .post-content .tinysr-comparison figcaption span {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+</style>
+<div class="tinysr-comparison" role="group" aria-label="TinySR-Jetson super-resolution example">
+  <figure>
+    <img src="{{ '/assets/images/projects/tinysr-jetson/input.png' | relative_url }}" alt="Original 128 by 128 pixel input image" width="128" height="128" loading="lazy" decoding="async">
+    <figcaption>Input <span>128 × 128</span></figcaption>
+  </figure>
+  <figure>
+    <img src="{{ '/assets/images/projects/tinysr-jetson/output.png' | relative_url }}" alt="TinySR-Jetson generated 512 by 512 pixel super-resolution result" width="512" height="512" loading="lazy" decoding="async">
+    <figcaption>TinySR-Jetson <span>512 × 512</span></figcaption>
+  </figure>
+</div>

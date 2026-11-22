@@ -29,13 +29,16 @@ description: Embedded software, projects and technical writing by Daniel Fridman
       <div class="block-head"><div class="block-title"><h2>selected projects</h2></div><a href="{{ '/prj/' | relative_url }}">all prj →</a></div>
       <div class="project-stack">
         {% assign selected = site.projects | where: 'selected', true | sort: 'order' %}
-        {% for project in selected limit:3 %}
+        {% assign featured_slugs = 'touhou-fumo-companion,cyd-doom,tinysr-jetson' | split: ',' %}
+        {% for project in selected %}
+          {% if featured_slugs contains project.slug %}
         <a class="project-card" href="{{ project.url | relative_url }}" aria-label="Open {{ project.title | escape }}">
           <div class="tags">{% for tech in project.stack limit:2 %}<span class="tag">{{ tech }}</span>{% endfor %}</div>
           <h3>{{ project.title }}</h3>
           <p>{{ project.summary }}</p>
           <span class="project-open">open →</span>
         </a>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
